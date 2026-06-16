@@ -59,20 +59,23 @@ export default defineEventHandler(async (event) => {
       // Determine Theme
       let themeColor = '#1e293b' // Default Dark Blue (slate-800)
       let themeTitle = `New Inquiry from ${body.name}`
+      let themeIcon = ''
       
       if (body.type === 'Finance') {
         themeColor = '#16a34a' // Green for finance
-        themeTitle = `💰 New Finance Request from ${body.name}`
+        themeTitle = `New Finance Request from ${body.name}`
+        themeIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: -6px; margin-right: 8px;"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>`
       } else if (body.type === 'Info') {
         themeColor = '#0284c7' // Blue for Info
-        themeTitle = `ℹ️ New Information Request from ${body.name}`
+        themeTitle = `New Information Request from ${body.name}`
+        themeIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: -6px; margin-right: 8px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>`
       }
 
       const emailHtml = `
       <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #f8fafc; padding: 20px; border-radius: 12px;">
         <!-- Header -->
         <div style="background-color: ${themeColor}; padding: 25px; text-align: center; color: white; border-top-left-radius: 12px; border-top-right-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-          <h2 style="margin: 0; font-size: 24px; font-weight: 600;">${themeTitle}</h2>
+          <h2 style="margin: 0; font-size: 24px; font-weight: 600;">${themeIcon}${themeTitle}</h2>
         </div>
         
         <!-- Customer Details -->
