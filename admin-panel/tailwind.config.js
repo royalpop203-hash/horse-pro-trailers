@@ -9,10 +9,14 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+        serif: ['Outfit', 'sans-serif'],
+      },
       colors: {
         brand: {
-          darkblue: '#1e3a5f',
-          lightblue: '#4a90e2'
+          darkblue: '#0F172A',
+          lightblue: '#3B82F6'
         }
       }
     },

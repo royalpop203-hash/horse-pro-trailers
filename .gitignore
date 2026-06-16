@@ -8,6 +8,7 @@ web/dist
 
 # Node dependencies
 web/node_modules
+admin-panel/node_modules
 
 # Logs
 logs

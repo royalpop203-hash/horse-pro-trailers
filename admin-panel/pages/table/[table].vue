@@ -1,97 +1,134 @@
 <template>
-  <div class="flex min-h-screen bg-gray-50">
+  <div class="flex min-h-screen bg-slate-50 font-sans">
     <!-- Sidebar -->
-    <aside class="w-64 bg-brand-darkblue text-white flex flex-col h-screen sticky top-0">
-      <div class="p-6">
-        <h2 class="text-2xl font-serif font-bold tracking-wider uppercase">Admin</h2>
+    <aside class="w-72 bg-brand-darkblue text-white flex flex-col h-screen sticky top-0 shadow-2xl z-20">
+      <div class="p-8 pb-6 border-b border-white/10">
+        <h2 class="text-2xl font-serif font-bold tracking-tight flex items-center gap-3">
+          <div class="w-8 h-8 bg-brand-lightblue rounded-lg flex items-center justify-center">
+            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+          </div>
+          Admin
+        </h2>
       </div>
-      <nav class="flex-1 overflow-y-auto px-4 flex flex-col gap-2">
-        <NuxtLink to="/" class="block px-4 py-2 rounded transition-colors font-medium hover:bg-white/10" exact-active-class="bg-white/10">
+      <nav class="flex-1 overflow-y-auto p-4 flex flex-col gap-2 scrollbar-thin scrollbar-thumb-white/20">
+        <NuxtLink to="/" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-medium text-slate-300 hover:text-white hover:bg-white/5" exact-active-class="!bg-brand-lightblue/20 !text-brand-lightblue font-semibold">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
           Schema Viewer
         </NuxtLink>
-        <div v-if="schema" class="mt-6 mb-4">
-          <h3 class="text-xs uppercase tracking-wider text-white/50 mb-2 px-4 font-bold">Tables</h3>
-          <ul class="flex flex-col gap-1">
+        <div v-if="schema" class="mt-8 mb-4">
+          <h3 class="text-[11px] uppercase tracking-widest text-slate-500 mb-3 px-4 font-bold">Manage Tables</h3>
+          <ul class="flex flex-col gap-1.5">
             <li v-for="t in tablesList" :key="t">
-              <NuxtLink :to="`/table/${t}`" class="block px-4 py-2 rounded transition-colors hover:bg-white/5 text-sm" active-class="bg-white/10 font-medium">
-                {{ t }}
+              <NuxtLink :to="`/table/${t}`" class="flex items-center justify-between px-4 py-2.5 rounded-xl transition-all text-sm text-slate-400 hover:text-white hover:bg-white/5 group" active-class="!bg-brand-lightblue/20 !text-brand-lightblue font-medium">
+                <span class="capitalize">{{ t }}</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-lightblue opacity-0 group-hover:opacity-100 transition-opacity"></span>
               </NuxtLink>
             </li>
           </ul>
         </div>
       </nav>
       <div class="p-4 mt-auto border-t border-white/10">
-        <button @click="handleLogout" class="w-full py-2 text-center text-sm text-white/70 hover:text-white border border-white/20 rounded transition-colors">
+        <button @click="handleLogout" class="flex items-center justify-center gap-2 w-full py-3.5 text-sm font-medium text-slate-400 hover:text-white bg-white/5 hover:bg-red-500/10 hover:text-red-400 rounded-xl transition-all">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
           Disconnect
         </button>
       </div>
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 p-8 overflow-y-auto relative w-full max-w-[calc(100vw-16rem)]">
-      <div class="flex justify-between items-center mb-8">
-        <h1 class="text-3xl font-bold text-gray-900 capitalize">{{ tableName }}</h1>
-        <button @click="openCreateForm" class="bg-brand-darkblue text-white px-4 py-2 rounded shadow hover:bg-opacity-90 transition-opacity font-semibold">
-          + Add New
+    <main class="flex-1 p-10 overflow-y-auto relative w-full max-w-[calc(100vw-18rem)]">
+      <div class="flex justify-between items-center mb-8 bg-white p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-200/60">
+        <h1 class="text-3xl font-bold text-gray-900 capitalize tracking-tight flex items-center gap-3">
+          <div class="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center text-brand-lightblue">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg>
+          </div>
+          {{ tableName }}
+        </h1>
+        <button @click="openCreateForm" class="flex items-center gap-2 bg-brand-darkblue text-white px-6 py-3 rounded-xl shadow-lg shadow-brand-darkblue/20 hover:bg-slate-800 hover:-translate-y-0.5 active:translate-y-0 transition-all font-semibold">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+          Add New Entry
         </button>
       </div>
 
       <!-- Data Table -->
-      <div v-if="isLoadingData" class="text-gray-500 py-8">Loading data...</div>
-      <div v-else-if="errorData" class="text-red-500 py-8">{{ errorData }}</div>
-      <div v-else class="bg-white border border-gray-200 rounded shadow-sm overflow-x-auto">
-        <table class="w-full text-left text-sm whitespace-nowrap">
-          <thead class="bg-gray-50 text-gray-600 uppercase text-xs">
-            <tr>
-              <th v-for="col in columns" :key="col" class="px-6 py-3 font-semibold">{{ col }}</th>
-              <th class="px-6 py-3 font-semibold text-right">Actions</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-gray-200">
-            <tr v-if="data.length === 0">
-              <td :colspan="columns.length + 1" class="px-6 py-8 text-center text-gray-500">No records found.</td>
-            </tr>
-            <tr v-for="row in data" :key="row.id" class="hover:bg-gray-50">
-              <td v-for="col in columns" :key="col" class="px-6 py-4 max-w-xs truncate">
-                {{ formatValue(row[col]) }}
-              </td>
-              <td class="px-6 py-4 text-right">
-                <button @click="openEditForm(row)" class="text-brand-lightblue hover:underline mr-4">Edit</button>
-                <button @click="deleteRow(row.id)" class="text-red-500 hover:underline">Delete</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div v-if="isLoadingData" class="flex flex-col items-center justify-center py-32 text-slate-400">
+        <div class="animate-spin w-10 h-10 border-4 border-brand-lightblue border-t-transparent rounded-full mb-4"></div>
+        Fetching records...
+      </div>
+      <div v-else-if="errorData" class="text-red-500 py-8 text-center bg-red-50 rounded-2xl border border-red-100">
+        {{ errorData }}
+      </div>
+      <div v-else class="bg-white border border-slate-200/60 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm whitespace-nowrap">
+            <thead class="bg-slate-50/80 text-slate-500 uppercase text-xs tracking-wider border-b border-slate-200">
+              <tr>
+                <th v-for="col in columns" :key="col" class="px-6 py-4 font-semibold">{{ col.replace(/_/g, ' ') }}</th>
+                <th class="px-6 py-4 font-semibold text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr v-if="data.length === 0">
+                <td :colspan="columns.length + 1" class="px-6 py-16 text-center text-slate-400 text-base">
+                  <svg class="w-12 h-12 mx-auto text-slate-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
+                  No records found in this table.
+                </td>
+              </tr>
+              <tr v-for="(row, idx) in data" :key="row.id || idx" class="hover:bg-slate-50/80 transition-colors group">
+                <td v-for="col in columns" :key="col" class="px-6 py-5 max-w-xs truncate text-slate-700">
+                  <span v-if="typeof row[col] === 'boolean'" :class="row[col] ? 'text-green-600 bg-green-100 px-2.5 py-1 rounded-full text-xs font-semibold' : 'text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full text-xs font-semibold'">
+                    {{ formatValue(row[col]) }}
+                  </span>
+                  <span v-else>
+                    {{ formatValue(row[col]) }}
+                  </span>
+                </td>
+                <td class="px-6 py-5 text-right space-x-3">
+                  <button @click="openEditForm(row)" class="text-brand-lightblue hover:text-brand-darkblue font-medium transition-colors p-2 hover:bg-brand-lightblue/10 rounded-lg">
+                    Edit
+                  </button>
+                  <button @click="deleteRow(row.id || row[columns[0]])" class="text-red-400 hover:text-red-600 font-medium transition-colors p-2 hover:bg-red-50 rounded-lg">
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </main>
 
-    <!-- Modal Form -->
-    <div v-if="showForm" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" @click.self="showForm = false">
-      <div class="bg-white rounded shadow-xl w-full max-w-2xl max-h-[90vh] flex flex-col">
-        <div class="p-6 border-b border-gray-200 flex justify-between items-center">
-          <h2 class="text-xl font-bold capitalize">{{ isEditing ? 'Edit' : 'Add' }} {{ tableName }}</h2>
-          <button @click="showForm = false" class="text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
-        </div>
-        <div class="p-6 overflow-y-auto flex-1">
-          <form @submit.prevent="saveRecord" class="flex flex-col gap-4">
-            <div v-for="col in editableColumns" :key="col">
-              <label class="block text-sm font-semibold text-gray-700 mb-1 capitalize">{{ col.replace(/_/g, ' ') }}</label>
-              <textarea v-if="schemaDef?.properties[col]?.type === 'string' && schemaDef?.properties[col]?.maxLength > 200" v-model="formData[col]" class="w-full border border-gray-300 rounded p-2 focus:ring-1 focus:ring-brand-darkblue outline-none" rows="3"></textarea>
-              <input v-else-if="schemaDef?.properties[col]?.type === 'number' || schemaDef?.properties[col]?.type === 'integer'" v-model.number="formData[col]" type="number" step="any" class="w-full border border-gray-300 rounded p-2 focus:ring-1 focus:ring-brand-darkblue outline-none" />
-              <select v-else-if="schemaDef?.properties[col]?.type === 'boolean'" v-model="formData[col]" class="w-full border border-gray-300 rounded p-2 focus:ring-1 focus:ring-brand-darkblue outline-none">
-                <option :value="true">True</option>
-                <option :value="false">False</option>
-              </select>
-              <input v-else v-model="formData[col]" type="text" class="w-full border border-gray-300 rounded p-2 focus:ring-1 focus:ring-brand-darkblue outline-none" />
-            </div>
-            <div class="mt-4 flex justify-end gap-2">
-              <button type="button" @click="showForm = false" class="px-4 py-2 border border-gray-300 rounded text-gray-700 hover:bg-gray-50">Cancel</button>
-              <button type="submit" class="px-4 py-2 bg-brand-darkblue text-white rounded hover:bg-opacity-90">{{ isEditing ? 'Update' : 'Save' }}</button>
-            </div>
-          </form>
+    <!-- Modal Form (Animated Overlay) -->
+    <transition enter-active-class="transition-opacity duration-300" leave-active-class="transition-opacity duration-200" enter-from-class="opacity-0" leave-to-class="opacity-0">
+      <div v-if="showForm" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm p-4" @click.self="showForm = false">
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden transform transition-all">
+          <div class="px-8 py-6 bg-slate-50 border-b border-slate-100 flex justify-between items-center">
+            <h2 class="text-2xl font-bold text-gray-900 tracking-tight">{{ isEditing ? 'Edit Record' : 'Create Record' }}</h2>
+            <button @click="showForm = false" class="text-slate-400 hover:text-slate-700 bg-white p-2 rounded-full shadow-sm hover:shadow transition-all">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+          </div>
+          <div class="p-8 overflow-y-auto flex-1 scrollbar-thin scrollbar-thumb-slate-200">
+            <form @submit.prevent="saveRecord" class="flex flex-col gap-6">
+              <div v-for="col in editableColumns" :key="col">
+                <label class="block text-sm font-semibold text-slate-700 mb-2 capitalize">{{ col.replace(/_/g, ' ') }}</label>
+                <textarea v-if="schemaDef?.properties[col]?.type === 'string' && schemaDef?.properties[col]?.maxLength > 200" v-model="formData[col]" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 focus:bg-white focus:ring-2 focus:ring-brand-lightblue focus:border-brand-lightblue transition-all outline-none" rows="3"></textarea>
+                <input v-else-if="schemaDef?.properties[col]?.type === 'number' || schemaDef?.properties[col]?.type === 'integer'" v-model.number="formData[col]" type="number" step="any" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 focus:bg-white focus:ring-2 focus:ring-brand-lightblue focus:border-brand-lightblue transition-all outline-none" />
+                <select v-else-if="schemaDef?.properties[col]?.type === 'boolean'" v-model="formData[col]" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 focus:bg-white focus:ring-2 focus:ring-brand-lightblue focus:border-brand-lightblue transition-all outline-none">
+                  <option :value="true">True</option>
+                  <option :value="false">False</option>
+                </select>
+                <input v-else v-model="formData[col]" type="text" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 focus:bg-white focus:ring-2 focus:ring-brand-lightblue focus:border-brand-lightblue transition-all outline-none" />
+              </div>
+              <div class="mt-8 pt-6 border-t border-slate-100 flex justify-end gap-3">
+                <button type="button" @click="showForm = false" class="px-6 py-3 font-medium text-slate-600 hover:text-slate-900 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors">Cancel</button>
+                <button type="submit" class="px-8 py-3 bg-brand-darkblue text-white font-medium rounded-xl shadow-lg shadow-brand-darkblue/20 hover:bg-slate-800 transition-all hover:-translate-y-0.5 active:translate-y-0">{{ isEditing ? 'Save Changes' : 'Create Record' }}</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
 
