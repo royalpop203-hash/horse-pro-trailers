@@ -313,7 +313,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { useSupabaseClient } from '#imports';
+import { useSupabaseClient, useSeoMeta } from '#imports';
 
 // Modal State
 const showModal = ref(false);
@@ -452,4 +452,19 @@ const formattedWeight = (weight: any) => {
   }
   return weightStr + ' lbs';
 };
+
+useSeoMeta({
+  title: () => product.value ? `${product.value.title} | Horse Pro Trailers` : 'Trailer Details | Horse Pro Trailers',
+  description: () => {
+    if (!product.value?.description_html) return 'View this trailer at Horse Pro Trailers.';
+    return product.value.description_html.replace(/<[^>]*>?/gm, '').substring(0, 155) + '...';
+  },
+  ogTitle: () => product.value ? `${product.value.title} | Horse Pro Trailers` : 'Trailer Details',
+  ogDescription: () => {
+    if (!product.value?.description_html) return 'View this trailer at Horse Pro Trailers.';
+    return product.value.description_html.replace(/<[^>]*>?/gm, '').substring(0, 155) + '...';
+  },
+  ogImage: () => images.value.length > 0 ? images.value[0].url : '/images/Horse-Pro-Trailers-Hero-Background-1-jpg.webp',
+  twitterCard: 'summary_large_image',
+});
 </script>

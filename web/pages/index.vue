@@ -282,9 +282,18 @@
 </template>
 
 <script setup>
-import { useSupabaseClient } from '#imports';
+import { useSupabaseClient, useSeoMeta } from '#imports';
 import ProductCard from '~/components/inventory/ProductCard.vue';
 import { ref, onMounted } from 'vue';
+
+useSeoMeta({
+  title: 'Horse Pro Trailers | Custom & Pre-Owned Horse Trailers in Gainesville, GA',
+  description: 'Shop top-quality new and used horse trailers at Horse Pro Trailers. We carry 4-Star, Cimarron, Merhow, Exiss, and more. Visit us in Gainesville, GA!',
+  ogTitle: 'Horse Pro Trailers | Custom & Pre-Owned Horse Trailers',
+  ogDescription: 'Shop top-quality new and used horse trailers at Horse Pro Trailers. We carry 4-Star, Cimarron, Merhow, Exiss, and more.',
+  ogImage: '/images/Horse-Pro-Trailers-Hero-Background-1-jpg.webp',
+  twitterCard: 'summary_large_image',
+})
 
 const supabase = useSupabaseClient();
 const latestProducts = ref([]);

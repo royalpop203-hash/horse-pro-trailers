@@ -73,9 +73,18 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useSupabaseClient } from '#imports';
+import { useSupabaseClient, useSeoMeta } from '#imports';
 import InventorySidebar from '~/components/inventory/InventorySidebar.vue';
 import ProductListItem from '~/components/inventory/ProductListItem.vue';
+
+useSeoMeta({
+  title: 'Inventory | Horse Pro Trailers',
+  description: 'Browse our extensive inventory of new and used horse trailers for sale. Filter by brand, stalls, pull type, and condition.',
+  ogTitle: 'Inventory | Horse Pro Trailers',
+  ogDescription: 'Browse our extensive inventory of new and used horse trailers for sale.',
+  ogImage: '/images/Horse-Pro-Trailers-Hero-Background-1-jpg.webp',
+  twitterCard: 'summary_large_image',
+})
 
 const route = useRoute();
 const router = useRouter();

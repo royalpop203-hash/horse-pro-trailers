@@ -230,8 +230,13 @@
 import { ref } from 'vue'
 import { useHead } from '#imports'
 
-useHead({
-  title: 'Contact Us - Horse Pro Trailers'
+useSeoMeta({
+  title: 'Contact Us | Horse Pro Trailers',
+  description: 'Have questions about our horse trailers? Contact the Horse Pro Trailers team today via phone or email, or visit our dealership in Gainesville, GA.',
+  ogTitle: 'Contact Us | Horse Pro Trailers',
+  ogDescription: 'Have questions about our horse trailers? Contact the Horse Pro Trailers team today via phone or email.',
+  ogImage: '/images/Horse-Pro-Trailers-Hero-Background-1-jpg.webp',
+  twitterCard: 'summary_large_image',
 })
 
 const form = ref({
