@@ -246,26 +246,44 @@ const isSubmitting = ref(false)
 const submitSuccess = ref(false)
 
 const submitForm = async () => {
-  isSubmitting.value = true
+  if (isSubmitting.value) return;
   
-  // Simulate API delay
-  await new Promise(resolve => setTimeout(resolve, 1500))
+  isSubmitting.value = true;
   
-  // Reset form
-  form.value = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    message: ''
+  try {
+    const response = await $fetch('/api/inquiries', {
+      method: 'POST',
+      body: {
+        name: `${form.value.firstName} ${form.value.lastName}`.trim(),
+        email: form.value.email,
+        phone: form.value.phone,
+        message: form.value.message,
+        type: 'General'
+      }
+    });
+
+    if (response.success) {
+      // Reset form
+      form.value = {
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        message: ''
+      };
+      
+      submitSuccess.value = true;
+      
+      // Hide success message after 5 seconds
+      setTimeout(() => {
+        submitSuccess.value = false;
+      }, 5000);
+    }
+  } catch (err) {
+    console.error('Failed to submit inquiry:', err);
+    alert('An error occurred. Please try again.');
+  } finally {
+    isSubmitting.value = false;
   }
-  
-  isSubmitting.value = false
-  submitSuccess.value = true
-  
-  // Hide success message after 5 seconds
-  setTimeout(() => {
-    submitSuccess.value = false
-  }, 5000)
 }
 </script>
