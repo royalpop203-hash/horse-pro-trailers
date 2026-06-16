@@ -93,7 +93,7 @@ export class SupabaseProductRepository implements IProductRepository {
     
     const { data, error } = await this.client
       .from('products')
-      .insert(productData)
+      .insert(productData as any)
       .select()
       .single();
 
@@ -105,7 +105,7 @@ export class SupabaseProductRepository implements IProductRepository {
     const { images, ...productData } = product;
     const { data, error } = await this.client
       .from('products')
-      .update(productData)
+      .update(productData as never)
       .eq('id', id)
       .select()
       .single();
