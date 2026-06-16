@@ -264,7 +264,7 @@
         </NuxtLink>
       </div>
 
-    </main>
+    </div>
 
     <!-- Request Modal -->
     <div v-if="showModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4" @click.self="closeModal">
