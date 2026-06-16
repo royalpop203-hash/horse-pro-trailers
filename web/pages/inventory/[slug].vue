@@ -116,8 +116,8 @@
               <button @click="openModal('Finance')" class="bg-white text-gray-900 border-[1.5px] border-gray-400 w-full py-4 uppercase font-bold tracking-wider hover:bg-gray-50 transition-colors rounded-sm">
                 Get Financed
               </button>
-              <a href="tel:6785577165" class="bg-white text-gray-900 border-[1.5px] border-gray-400 w-full py-4 text-center uppercase font-bold tracking-wider hover:bg-gray-50 transition-colors rounded-sm block">
-                (678) 557-7165
+              <a href="tel:2817796484" class="bg-white text-gray-900 border-[1.5px] border-gray-400 w-full py-4 text-center uppercase font-bold tracking-wider hover:bg-gray-50 transition-colors rounded-sm block">
+                (281) 779-6484
               </a>
             </div>
           </div>

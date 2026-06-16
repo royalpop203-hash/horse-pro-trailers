@@ -149,7 +149,7 @@
               </div>
               <div style="padding-top: 4px;">
                 <h5 class="text-xl font-bold text-[#1a202c] mb-2 font-serif">Phone</h5>
-                <p class="text-gray-600 text-lg leading-relaxed group-hover:text-[#2ea3f2] transition-colors">(678) 557-7165</p>
+                <p class="text-gray-600 text-lg leading-relaxed group-hover:text-[#2ea3f2] transition-colors">(281) 779-6484</p>
               </div>
             </div>
 

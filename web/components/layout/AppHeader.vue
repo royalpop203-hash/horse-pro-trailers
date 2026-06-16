@@ -84,8 +84,8 @@
           <!-- Right: Buttons -->
           <div class="w-[15%] flex flex-col items-end justify-center space-y-[10px]">
             <span class="text-white text-[12px] font-serif font-bold mb-1 text-right w-full hover:text-brand-yellow transition-colors cursor-default">Gainesville, GA 30506</span>
-            <a href="tel:6785577165" class="bg-brand-yellow text-black hover:text-white hover:bg-brand-darkblue border hover:border-brand-darkblue border-brand-yellow font-serif font-bold py-[10px] px-4 rounded-full transition-all duration-300 text-[14px] w-[175px] text-center">
-              (678) 557-7165
+            <a href="tel:2817796484" class="bg-brand-yellow text-black hover:text-white hover:bg-brand-darkblue border hover:border-brand-darkblue border-brand-yellow font-serif font-bold py-[10px] px-4 rounded-full transition-all duration-300 text-[14px] w-[175px] text-center">
+              (281) 779-6484
             </a>
             <NuxtLink to="/inventory?clearance=true" class="bg-brand-orange text-black hover:text-white hover:bg-brand-darkblue border hover:border-brand-darkblue border-brand-orange font-serif font-bold py-[10px] px-4 rounded-full transition-all duration-300 text-[14px] w-[175px] text-center whitespace-nowrap">
               Clearance Trailers
@@ -173,7 +173,7 @@
         
         <div class="pt-6 space-y-3">
           <span class="text-white text-[12px] font-bold block text-center w-full">Gainesville, GA 30506</span>
-          <a href="tel:6785577165" class="bg-brand-yellow text-black block text-center py-3 rounded-full font-bold hover:bg-brand-darkblue hover:text-white transition-colors">(678) 557-7165</a>
+          <a href="tel:2817796484" class="bg-brand-yellow text-black block text-center py-3 rounded-full font-bold hover:bg-brand-darkblue hover:text-white transition-colors">(281) 779-6484</a>
           <NuxtLink to="/inventory?clearance=true" class="bg-brand-orange text-black block text-center py-3 rounded-full font-bold shadow-md hover:bg-brand-darkblue hover:text-white transition-colors">Clearance Trailers</NuxtLink>
         </div>
       </nav>
