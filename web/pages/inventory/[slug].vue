@@ -110,15 +110,15 @@
 
             <!-- CTA Buttons -->
             <div class="flex flex-col gap-4 mt-auto">
-              <button class="bg-brand-darkblue text-white w-full py-4 uppercase font-bold tracking-wider hover:bg-opacity-90 transition-opacity rounded-sm shadow-sm">
+              <button @click="openModal('Info')" class="bg-brand-darkblue text-white w-full py-4 uppercase font-bold tracking-wider hover:bg-opacity-90 transition-opacity rounded-sm shadow-sm">
                 Request Info
               </button>
-              <button class="bg-white text-gray-900 border-[1.5px] border-gray-400 w-full py-4 uppercase font-bold tracking-wider hover:bg-gray-50 transition-colors rounded-sm">
+              <button @click="openModal('Finance')" class="bg-white text-gray-900 border-[1.5px] border-gray-400 w-full py-4 uppercase font-bold tracking-wider hover:bg-gray-50 transition-colors rounded-sm">
                 Get Financed
               </button>
-              <button class="bg-white text-gray-900 border-[1.5px] border-gray-400 w-full py-4 uppercase font-bold tracking-wider hover:bg-gray-50 transition-colors rounded-sm">
+              <a href="tel:6785577165" class="bg-white text-gray-900 border-[1.5px] border-gray-400 w-full py-4 text-center uppercase font-bold tracking-wider hover:bg-gray-50 transition-colors rounded-sm block">
                 (678) 557-7165
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -264,6 +264,48 @@
         </NuxtLink>
       </div>
 
+    </main>
+
+    <!-- Request Modal -->
+    <div v-if="showModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4" @click.self="closeModal">
+      <div class="bg-white rounded-md shadow-2xl w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh]">
+        <div class="flex items-center justify-between p-6 border-b border-gray-200">
+          <h3 class="text-2xl font-serif font-bold text-brand-darkblue uppercase tracking-wider">
+            {{ modalType === 'Info' ? 'Request Information' : 'Get Financed' }}
+          </h3>
+          <button @click="closeModal" class="text-gray-500 hover:text-gray-800 text-2xl font-light">&times;</button>
+        </div>
+        <div class="p-6 overflow-y-auto">
+          <div v-if="submitSuccess" class="bg-green-50 border border-green-200 text-green-800 rounded-md p-4 mb-4">
+            Thank you! Your request has been sent. We will be in touch shortly.
+          </div>
+          <div v-if="submitError" class="bg-red-50 border border-red-200 text-red-800 rounded-md p-4 mb-4">
+            {{ submitError }}
+          </div>
+          
+          <form v-if="!submitSuccess" @submit.prevent="submitInquiry" class="flex flex-col gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-1">Full Name *</label>
+              <input v-model="formData.name" type="text" required class="w-full border border-gray-300 rounded p-3 focus:border-brand-darkblue focus:ring-1 focus:ring-brand-darkblue outline-none" placeholder="Jane Doe" />
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-1">Email Address *</label>
+              <input v-model="formData.email" type="email" required class="w-full border border-gray-300 rounded p-3 focus:border-brand-darkblue focus:ring-1 focus:ring-brand-darkblue outline-none" placeholder="jane@example.com" />
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-1">Phone Number</label>
+              <input v-model="formData.phone" type="tel" class="w-full border border-gray-300 rounded p-3 focus:border-brand-darkblue focus:ring-1 focus:ring-brand-darkblue outline-none" placeholder="(555) 123-4567" />
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-1">Message</label>
+              <textarea v-model="formData.message" rows="4" class="w-full border border-gray-300 rounded p-3 focus:border-brand-darkblue focus:ring-1 focus:ring-brand-darkblue outline-none" :placeholder="modalType === 'Info' ? 'I am interested in this trailer...' : 'I would like more information on financing options...'"></textarea>
+            </div>
+            <button type="submit" :disabled="isSubmitting" class="mt-4 bg-brand-darkblue text-white w-full py-4 uppercase font-bold tracking-wider hover:bg-opacity-90 transition-opacity rounded-sm shadow-sm disabled:opacity-50">
+              {{ isSubmitting ? 'Sending...' : 'Submit Request' }}
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -272,6 +314,56 @@
 import { ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useSupabaseClient } from '#imports';
+
+// Modal State
+const showModal = ref(false);
+const modalType = ref('Info');
+const isSubmitting = ref(false);
+const submitSuccess = ref(false);
+const submitError = ref('');
+const formData = ref({
+  name: '',
+  email: '',
+  phone: '',
+  message: ''
+});
+
+const openModal = (type: string) => {
+  modalType.value = type;
+  showModal.value = true;
+  submitSuccess.value = false;
+  submitError.value = '';
+};
+
+const closeModal = () => {
+  showModal.value = false;
+};
+
+const submitInquiry = async () => {
+  isSubmitting.value = true;
+  submitError.value = '';
+  try {
+    const response = await $fetch('/api/inquiries', {
+      method: 'POST',
+      body: {
+        product_id: product.value?.id,
+        type: modalType.value,
+        name: formData.value.name,
+        email: formData.value.email,
+        phone: formData.value.phone,
+        message: formData.value.message
+      }
+    });
+    if ((response as any).success) {
+      submitSuccess.value = true;
+      formData.value = { name: '', email: '', phone: '', message: '' };
+    }
+  } catch (err: any) {
+    submitError.value = err.data?.statusMessage || 'An error occurred. Please try again.';
+  } finally {
+    isSubmitting.value = false;
+  }
+};
 
 const route = useRoute();
 const slug = route.params.slug;

@@ -12,12 +12,14 @@
     "@nuxtjs/google-fonts": "^3.2.0",
     "@nuxtjs/supabase": "^1.1.7",
     "@nuxtjs/tailwindcss": "^6.11.4",
+    "@types/nodemailer": "^8.0.1",
     "nuxt": "^3.10.3",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
   "dependencies": {
-    "lucide-vue-next": "^1.0.0"
+    "lucide-vue-next": "^1.0.0",
+    "nodemailer": "^9.0.0"
   },
   "type": "module"
 }
