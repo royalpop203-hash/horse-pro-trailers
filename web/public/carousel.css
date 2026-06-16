@@ -1,0 +1,41 @@
+/*
+  - Slider Multiple layout CSS
+******************************************************/
+/* slider.css overrides */
+.romw-outer-wrapper {
+  background-color: transparent;
+}
+
+.romw-slider-layout {
+  padding: 0 0 15px;
+}
+
+.romw-slider-layout .romw-review-block {
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #ececec;
+  height: 198px;
+  padding: 10px 10px 10px 12px;
+  overflow: hidden;
+}
+
+.romw-slider-layout .romw-author-block {
+  margin-bottom: 3px;
+}
+
+.romw-slider-layout .rocketScroll .scrollContent {
+  padding: 0 20px 0 0;
+}
+
+.scroll {
+  height: 104px;
+  overflow-y: scroll;
+}
+
+.scroll.romw-review-content-block {
+  margin-bottom: 0;
+}
+
+.rocketScroll .scrollbar {
+  right: 1px;
+}

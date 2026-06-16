@@ -1,0 +1,12 @@
+header#main-header {
+    display: none;
+}
+
+footer#main-footer {
+    display: none;
+}
+
+/* Fix for the transax form and incompatibility with divi popup class */
+.trx-tab-content-content > .popup {
+    display: block;
+}

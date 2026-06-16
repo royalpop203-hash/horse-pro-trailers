@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --general_color: #264d97;
+  --general_price_color: #264D97;
+  --general_sales_price_color: #e61610;
+  --general_savings_price_color: #44a2f8;
+  --general_inactive_text_color: #a9a6a6;
+  --general_borders_color: #ebebeb;
+  --general_light_grey_fill_color: #f7f6f6;
+}
+
+body {
+  @apply antialiased text-gray-800 bg-white;
+}

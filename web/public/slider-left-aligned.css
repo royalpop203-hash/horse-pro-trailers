@@ -1,0 +1,106 @@
+/*
+  - Slider Left Aligned layout CSS
+******************************************************/
+/* slider.css overrides */
+.romw-slider-layout {
+  min-height: 150px;
+  padding-bottom: 30px;
+  text-align: left;
+}
+
+.romw-slider-layout .romw-review-block {
+  padding-bottom: 6px;
+}
+
+.romw-slider-layout .romw-review-meta-block {
+  margin-top: -2px;
+}
+
+.romw-slider-layout .romw-review-heading-block {
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.romw-slider-layout .romw-review-heading-block .romw-thumbnail-block {
+  -ms-flex: none;
+  flex: none;
+  max-width: -moz-available;
+  max-width: fit-content;
+}
+
+.romw-slider-layout .romw-review-heading-block .romw-review-meta-block {
+  -ms-flex: 0 0 calc(100% - 64px);
+  flex: 0 0 calc(100% - 64px);
+  max-width: calc(100% - 64px);
+}
+
+.romw-slider-layout .romw-review-heading-block .romw-thumbnail-block:empty+.romw-review-meta-block {
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.romw-slider-layout .romw-author-block {
+  justify-content: space-between;
+}
+
+.romw-slider-layout .romw-author-name {
+  line-height: 1.2;
+  margin-right: 0;
+  padding-right: 10px;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.romw-slider-layout .romw-author-thumbnail {
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 8px;
+}
+
+.romw-slider-layout .romw-author-thumbnail:empty {
+  display: none;
+}
+
+.romw-slider-layout .romw-date-block {
+  position: relative;
+  left: unset;
+  right: unset;
+  bottom: auto;
+  text-align: left;
+}
+
+.romw-slider-layout .romw-rating-block {
+  line-height: 0;
+}
+
+.romw-slider-layout .romw-review-content-wrapper {
+  width: 100%;
+}
+
+.romw-slider-layout .romw-source-logo {
+  width: 22px;
+  height: 22px;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .romw-slider-layout .romw-author-thumbnail {
+    margin-right: 12px;
+  }
+
+  .romw-slider-layout .romw-review-heading-block .romw-review-meta-block {
+    -ms-flex: 0 0 calc(100% - 68px);
+    flex: 0 0 calc(100% - 68px);
+    max-width: calc(100% - 68px);
+  }
+
+  .romw-slider-layout .romw-review-heading-block .romw-thumbnail-block:empty+.romw-review-meta-block {
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}

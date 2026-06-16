@@ -1,0 +1,30 @@
+# Nuxt dev/build outputs
+web/.output
+web/.data
+web/.nuxt
+web/.nitro
+web/.cache
+web/dist
+
+# Node dependencies
+web/node_modules
+
+# Logs
+logs
+*.log
+
+# Misc
+.DS_Store
+.fleet
+.idea
+
+# Local env files
+web/.env
+web/.env.*
+!web/.env.example
+
+# Python Scraper files
+scraper/venv/
+scraper/__pycache__/
+scraper/.env
+scraper/output/

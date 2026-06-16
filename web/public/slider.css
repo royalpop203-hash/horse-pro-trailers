@@ -1,0 +1,156 @@
+/*
+  - Slider layout
+******************************************************/
+.romw-outer-wrapper {
+  border-radius: 5px;
+  padding: 30px 60px;
+  position: relative;
+}
+
+.romw-slider-layout {
+  min-height: 150px;
+  padding-bottom: 30px;
+  text-align: center;
+}
+
+.romw-slider-layout .romw-review-block {
+  padding-bottom: 50px;
+}
+
+.romw-slider-layout .romw-author-block {
+  margin-bottom: 5px;
+  padding-right: 0;
+  align-items: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.romw-slider-layout .romw-author-name {
+  margin-right: 5px;
+}
+
+.romw-slider-layout .romw-source-logo {
+  width: 18px;
+  height: 18px;
+}
+
+.romw-slider-layout .romw-review-source-block {
+  position: relative;
+  top: auto;
+  right: auto;
+}
+
+.romw-slider-layout .romw-review-heading-block {
+  display: block;
+}
+
+.romw-slider-layout .romw-review-heading-block .romw-thumbnail-block,
+.romw-slider-layout .romw-review-heading-block .romw-review-meta-block {
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.romw-slider-layout .romw-author-thumbnail {
+  margin: 0 auto 10px;
+}
+
+.romw-slider-layout .romw-author-thumbnail:empty {
+  display: block;
+}
+
+.romw-slider-layout .romw-date-block {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 18px;
+  text-align: center;
+}
+
+.romw-slider-layout .romw-review-content-wrapper {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* swiper.min.css overrides */
+.swiper-button-next,
+.swiper-button-prev {
+  width: 18px;
+  height: 29px;
+  color: #4f4f4f;
+  opacity: 0.5;
+  transition: 0.3s;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 28px;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: #4f4f4f;
+  opacity: 1;
+}
+
+.swiper-button-next:focus,
+.swiper-button-prev:focus {
+  outline: -webkit-focus-ring-color auto 0;
+}
+
+.swiper-pagination-bullet {
+  width: 6px;
+  height: 6px;
+  background: #cacace;
+  opacity: 1;
+  vertical-align: middle;
+}
+
+.swiper-pagination-bullet-active {
+  background: #5f5f5f;
+  width: 10px;
+  height: 10px;
+}
+
+.swiper-button-prev, .swiper-container-rtl .swiper-button-next {
+  left: 20px;
+}
+
+.swiper-button-next, .swiper-container-rtl .swiper-button-prev {
+  right: 20px;
+}
+
+@media all and (-ms-high-contrast: none) {
+
+  .romw-review-blocks-container .swiper-button-next:after,
+  .romw-review-blocks-container .swiper-container-rtl .swiper-button-prev:after,
+  .romw-review-blocks-container .swiper-button-prev:after,
+  .romw-review-blocks-container .swiper-container-rtl .swiper-button-next:after {
+    font-family: -apple-system, BlinkMacSystemFont, Courier, "Courier New", "Lucida Console", "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 36px;
+  }
+
+  .swiper-button-next:after,
+  .swiper-container-rtl .swiper-button-prev:after {
+    content: '›';
+  }
+
+  .swiper-button-prev:after,
+  .swiper-container-rtl .swiper-button-next:after {
+    content: '‹';
+  }
+}
+
+/* List Layout Responsive */
+@media (max-width: 575px) {
+  .romw-outer-wrapper {
+    padding: 0;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none;
+  }
+}

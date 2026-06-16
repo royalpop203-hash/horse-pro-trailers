@@ -1,0 +1,11 @@
+﻿/*!
+  Ionicons, v4.5.10-1
+  Created by Ben Sperry for the Ionic Framework, http://ionicons.com/
+  https://twitter.com/benjsperry  https://twitter.com/ionicframework
+  MIT License: https://github.com/driftyco/ionicons
+
+  Android-style icons originally built by Google’s
+  Material Design Icons: https://github.com/google/material-design-icons
+  used under CC BY http://creativecommons.org/licenses/by/4.0/
+  Modified icons to fit ionicon’s grid from original.
+*/@font-face{font-family:Ionicons;src:url(./webfonts/ionicons.woff2?v=4.5.10-1) format("woff2"),url(./webfonts/ionicons.woff?v=4.5.10-1) format("woff");font-weight:400;font-style:normal}.ion-md-star-half:before,.ion-md-star-outline:before,.ion-md-star:before,.ion-md-copy:before,.ion-ios-copy:before{display:inline-block;font-family:Ionicons;speak:none;font-style:normal;font-weight:400;font-variant:normal;text-transform:none;text-rendering:auto;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.ion-md-star:before{content:""}.ion-md-star-half:before{content:""}.ion-md-star-outline:before{content:""}.ion-md-copy:before{content:""}.ion-ios-copy:before{content:""}

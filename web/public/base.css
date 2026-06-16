@@ -1,0 +1,396 @@
+/*
+  Base
+******************************************************/
+body {
+  overflow-anchor: none;
+}
+
+*,
+:after,
+:before {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+p {
+  margin-top: 0;
+}
+
+.d-none {
+  display: none;
+}
+
+.d-block {
+  display: block;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.flex-row {
+  flex-direction: row
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.romw-review-blocks-container {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #525366;
+  text-align: left;
+}
+
+.romw-review-blocks-container a {
+  color: #1c91ff;
+  text-decoration: none;
+}
+
+.romw-review-blocks-container a:hover {
+  color: #1c91ff;
+  text-decoration: underline;
+}
+
+.romw-load-more-container {
+  text-align: center;
+}
+
+.romw-load-more-button {
+  border-radius: 5px;
+  border: 1px solid #ececec;
+  cursor: pointer;
+  color: #4a4a4a;
+  font-size: 14px;
+  line-height: 1.5;
+  display: inline-block;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 20px 8px 20px;
+  transition: 0.3s;
+  text-transform: uppercase;
+  vertical-align: middle;
+  white-space: nowrap;
+  background-color: transparent;
+  opacity: 0.9;
+}
+
+.romw-load-more-button:hover {
+  /*background-color: #ececec;*/
+  opacity: 1;
+}
+
+.romw-load-more-button:focus {
+  outline: -webkit-focus-ring-color auto 0;
+}
+
+.romw-author-thumbnail {
+  border-radius: 50%;
+  display: block;
+  width: 56px;
+  height: 56px;
+  overflow: hidden;
+  margin-right: 8px;
+}
+
+.romw-author-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.romw-author-thumbnail:empty {
+  display: none;
+}
+
+.romw-author-name {
+  color: #242424;
+  font-size: 18px;
+  font-weight: bold;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.romw-author-block {
+  margin-bottom: 8px;
+  padding-right: 40px;
+}
+
+.romw-date-block {
+  color: #ACACAC;
+  font-size: 14px;
+}
+
+.romw-review-heading-block {
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 10px;
+  word-break: break-all;
+}
+
+.romw-rating-star {
+  color: #ffaa00;
+  font-size: 21px;
+  line-height: 1;
+}
+
+.romw-source-logo {
+  width: 24px;
+  height: 24px;
+}
+
+.romw-source-logo a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.romw-source-logo img {
+  width: 100%;
+  height: auto;
+}
+
+.romw-source-heading {
+  color: #b5b5b5;
+  font-size: 12px;
+}
+
+.romw-review-block {
+  border: 1px solid transparent;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.romw-review-source-block {
+  position: absolute;
+  top: 12px;
+  right: 0;
+}
+
+.romw-nav-link {
+  color: #2ea3f2;
+  text-decoration: none;
+}
+
+.romw-nav-link:hover {
+  color: #2ea3f2;
+}
+
+.romw-more-content span {
+  display: none;
+}
+
+.romw-copyright {
+  text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 80%;
+  margin-top: 10px;
+}
+
+.romw-btn-close {
+  color: #aaa;
+  cursor: pointer;
+  padding: 10px;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  line-height: 0;
+  position: absolute;
+  top: -8px;
+  right: -11px;
+  z-index: 3;
+  visibility: visible;
+  opacity: 1;
+  transition: 0.1s;
+}
+
+.romw-btn-close .icon-caret-down {
+  display: block;
+  width: 10px;
+  height: auto;
+  margin: 0 auto;
+  opacity: 0.5;
+  transition: 0.3s;
+}
+
+.romw-btn-close:focus {
+  outline: -webkit-focus-ring-color auto 0;
+}
+
+.romw-btn-close:hover {
+  color: #333;
+}
+
+.romw-btn-close:hover .icon-caret-down {
+  opacity: 1;
+}
+
+.romw-btn-close .icon-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+.romw-btn-close:before {
+  background-color: #fff;
+  border-radius: 50px;
+  content: '';
+  display: block;
+  width: 17px;
+  height: 17px;
+  position: absolute;
+  top: 1px;
+  right: 6px;
+}
+
+.romw-btn-close.rounded-circle {
+  background-color: #fff;
+  border-radius: 50%;
+  box-shadow: 4px 6px 10px 1px rgba(0, 0, 0, 0.1);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.romw-btn-close.rounded-circle::before {
+  display: none;
+}
+
+.romw-btn-close.rounded-circle .icon-wrapper {
+  font-size: 20px;
+  top: -2px;
+}
+
+.ul-container-wrapper:hover .romw-btn-close {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Custom native scroll */
+.scroll {
+  width: 100%;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.scrollContent {
+  padding-right: 4px;
+}
+
+.scroll::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 4px rgb(0 0 0 / 0);
+  background-color: rgb(255 255 255 / 0);
+  border-radius: 10px;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  background-color: rgb(255 255 255 / 0);
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background-color: rgb(217 218 222 / 0);
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.scroll:hover::-webkit-scrollbar-thumb {
+  background-color: rgb(217 218 222);
+}
+
+@-moz-document url-prefix() {
+  .scroll {
+    scrollbar-color: rgb(217 218 222 / 0) transparent;
+    scrollbar-width: thin;
+  }
+
+  .scroll:hover {
+    scrollbar-color: rgb(217 218 222) transparent;
+  }
+}
+
+/* Safari 10.1+ */
+@media not all and (min-resolution: .001dpcm) {
+  @media {
+    .romw-btn-close:before {
+      top: 3px;
+      right: 7px;
+    }
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .romw-btn-close {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .romw-floating-layout.romw-review-blocks .active:hover .romw-btn-close {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.romw-reviews-heading-block {
+  font-size: 24px;
+  line-height: 34px;
+  margin-bottom: 20px;
+}
+
+.romw-reviews-heading-text {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.romw-reviews-heading-text.text-center {
+  justify-content: center;
+}
+
+.romw-reviews-heading-block .romw-average-rating,
+.romw-reviews-heading-block .romw-reviews-total-count {
+  margin-left: 8px;
+  font-size: 32px;
+  font-weight: bold;
+  line-height: 42px;
+}
+
+.romw-reviews-heading-block .romw-reviews-total-count {
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.romw-reviews-heading-block .romw-rating-star {
+  font-size: 32px;
+  margin-left: 3px;
+  margin-right: 8px;
+}
