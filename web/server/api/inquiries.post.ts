@@ -32,6 +32,17 @@ export default defineEventHandler(async (event) => {
 
   const toEmail = settings?.notification_email || 'info@horseprotrailersltd.com'
 
+  // Fetch product details if available
+  let productDetails = null
+  if (body.product_id) {
+    const { data: p } = await supabase
+      .from('products')
+      .select('title, stock_number, price, location, slug')
+      .eq('id', body.product_id)
+      .single()
+    if (p) productDetails = p
+  }
+
   // 3. Send Email using Nodemailer
   if (config.smtpHost && config.smtpUser) {
     try {
@@ -45,19 +56,64 @@ export default defineEventHandler(async (event) => {
         }
       })
 
+      // Determine Theme
+      let themeColor = '#1e293b' // Default Dark Blue (slate-800)
+      let themeTitle = `New Inquiry from ${body.name}`
+      
+      if (body.type === 'Finance') {
+        themeColor = '#16a34a' // Green for finance
+        themeTitle = `💰 New Finance Request from ${body.name}`
+      } else if (body.type === 'Info') {
+        themeColor = '#0284c7' // Blue for Info
+        themeTitle = `ℹ️ New Information Request from ${body.name}`
+      }
+
+      const emailHtml = `
+      <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #f8fafc; padding: 20px; border-radius: 12px;">
+        <!-- Header -->
+        <div style="background-color: ${themeColor}; padding: 25px; text-align: center; color: white; border-top-left-radius: 12px; border-top-right-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+          <h2 style="margin: 0; font-size: 24px; font-weight: 600;">${themeTitle}</h2>
+        </div>
+        
+        <!-- Customer Details -->
+        <div style="background-color: white; padding: 25px; border: 1px solid #e2e8f0; border-top: none;">
+          <h3 style="margin-top: 0; color: #334155; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;">Customer Details</h3>
+          <p style="margin: 8px 0; color: #475569;"><strong>Name:</strong> ${body.name}</p>
+          <p style="margin: 8px 0; color: #475569;"><strong>Email:</strong> <a href="mailto:${body.email}" style="color: ${themeColor}; text-decoration: none;">${body.email}</a></p>
+          <p style="margin: 8px 0; color: #475569;"><strong>Phone:</strong> ${body.phone ? `<a href="tel:${body.phone}" style="color: ${themeColor}; text-decoration: none;">${body.phone}</a>` : 'N/A'}</p>
+        </div>
+
+        <!-- Product Details -->
+        ${productDetails ? `
+        <div style="background-color: white; padding: 25px; border: 1px solid #e2e8f0; border-top: none;">
+          <h3 style="margin-top: 0; color: #334155; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;">Product of Interest</h3>
+          <p style="margin: 8px 0; color: #475569;"><strong>Title:</strong> ${productDetails.title}</p>
+          <p style="margin: 8px 0; color: #475569;"><strong>Stock #:</strong> ${productDetails.stock_number || 'N/A'}</p>
+          <p style="margin: 8px 0; color: #475569;"><strong>Price:</strong> ${productDetails.price ? `$${productDetails.price.toLocaleString()}` : 'Call for Price'}</p>
+          <p style="margin: 8px 0; color: #475569;"><strong>Location:</strong> ${productDetails.location || 'N/A'}</p>
+          <div style="margin-top: 20px;">
+            <a href="https://www.horseprotrailersltd.com/inventory/${productDetails.slug}" style="background-color: ${themeColor}; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: 500; display: inline-block;">View on Website</a>
+          </div>
+        </div>
+        ` : ''}
+
+        <!-- Message -->
+        <div style="background-color: white; padding: 25px; border: 1px solid #e2e8f0; border-top: none; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+          <h3 style="margin-top: 0; color: #334155; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;">Additional Message / Comments</h3>
+          <p style="white-space: pre-wrap; color: #475569; line-height: 1.6; margin: 0;">${body.message || '<i>No message provided.</i>'}</p>
+        </div>
+        
+        <div style="text-align: center; margin-top: 25px; color: #94a3b8; font-size: 13px;">
+          This is an automated notification from the Horse Pro Trailers website platform.
+        </div>
+      </div>
+      `
+
       const mailOptions = {
         from: `"Horse Pro Trailers" <${config.smtpUser}>`,
         to: toEmail,
-        subject: `New ${body.type} Request from ${body.name}`,
-        html: `
-          <h3>New Request Received</h3>
-          <p><strong>Type:</strong> ${body.type}</p>
-          <p><strong>Name:</strong> ${body.name}</p>
-          <p><strong>Email:</strong> ${body.email}</p>
-          <p><strong>Phone:</strong> ${body.phone || 'N/A'}</p>
-          ${body.product_id ? `<p><strong>Product ID:</strong> ${body.product_id}</p>` : ''}
-          <p><strong>Message:</strong><br/>${body.message}</p>
-        `
+        subject: `[${body.type}] New Request from ${body.name}`,
+        html: emailHtml
       }
 
       await transporter.sendMail(mailOptions)
