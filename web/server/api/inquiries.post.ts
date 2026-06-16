@@ -30,7 +30,7 @@ export default defineEventHandler(async (event) => {
     .select('notification_email')
     .single()
 
-  const toEmail = settings?.notification_email || 'info@horseprotrailers.com'
+  const toEmail = settings?.notification_email || 'info@horseprotrailersltd.com'
 
   // 3. Send Email using Nodemailer
   if (config.smtpHost && config.smtpUser) {
