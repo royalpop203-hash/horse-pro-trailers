@@ -20,7 +20,7 @@
         <address class="not-italic text-sm font-light space-y-2">
           <p>123 Trailer Way<br/>Gainesville, GA 30501</p>
           <p>Phone: (800) 555-1234</p>
-          <p>Email: sales@horseprotrailers.com</p>
+          <p>Email: sales@horseprotrailersltd.com</p>
         </address>
       </div>
     </div>

@@ -28,7 +28,7 @@ CREATE POLICY "Admins can delete inquiries" ON public.inquiries
 -- Create Site Settings table
 CREATE TABLE IF NOT EXISTS public.site_settings (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    notification_email TEXT NOT NULL DEFAULT 'info@horseprotrailers.com',
+    notification_email TEXT NOT NULL DEFAULT 'info@horseprotrailersltd.com',
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
@@ -45,5 +45,5 @@ CREATE POLICY "Admins can insert site_settings" ON public.site_settings
 
 -- Insert initial row if not exists
 INSERT INTO public.site_settings (notification_email)
-SELECT 'info@horseprotrailers.com'
+SELECT 'info@horseprotrailersltd.com'
 WHERE NOT EXISTS (SELECT 1 FROM public.site_settings);

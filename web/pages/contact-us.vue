@@ -163,8 +163,8 @@
               <div style="padding-top: 4px;">
                 <h5 class="text-xl font-bold text-[#1a202c] mb-2 font-serif">Email</h5>
                 <div class="text-gray-600 text-lg leading-relaxed flex flex-col" style="gap: 8px;">
-                  <a href="mailto:brandon@horseprotrailers.com" class="hover:text-[#2ea3f2] transition-colors">brandon@horseprotrailers.com</a>
-                  <a href="mailto:jeff@horseprotrailers.com" class="hover:text-[#2ea3f2] transition-colors">jeff@horseprotrailers.com</a>
+                  <a href="mailto:brandon@horseprotrailersltd.com" class="hover:text-[#2ea3f2] transition-colors">brandon@horseprotrailersltd.com</a>
+                  <a href="mailto:jeff@horseprotrailersltd.com" class="hover:text-[#2ea3f2] transition-colors">jeff@horseprotrailersltd.com</a>
                 </div>
               </div>
             </div>
