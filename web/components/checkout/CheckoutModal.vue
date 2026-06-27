@@ -101,19 +101,6 @@
           <h4 class="font-semibold text-gray-900 mb-4">Delivery preference</h4>
           <label
             class="flex cursor-pointer items-start gap-3 border p-4 rounded-sm transition-colors"
-            :class="deliveryMethod === 'pickup'
-              ? 'border-brand-darkblue ring-1 ring-brand-darkblue'
-              : 'border-gray-300 hover:border-gray-400'"
-          >
-            <input v-model="deliveryMethod" type="radio" value="pickup" class="mt-1 accent-brand-darkblue" />
-            <span class="flex-1">
-              <span class="block text-sm font-semibold text-gray-900">Pickup</span>
-              <span class="block text-xs text-gray-500 mt-0.5">Collect from our dealership at no extra charge</span>
-            </span>
-            <span class="text-sm font-semibold text-green-600 shrink-0">Free</span>
-          </label>
-          <label
-            class="flex cursor-pointer items-start gap-3 border p-4 rounded-sm transition-colors"
             :class="deliveryMethod === 'delivery'
               ? 'border-brand-darkblue ring-1 ring-brand-darkblue'
               : 'border-gray-300 hover:border-gray-400'"
@@ -192,7 +179,7 @@
             <div class="border border-gray-200 p-4 rounded-sm">
               <p class="mb-1 text-[11px] font-semibold uppercase tracking-wide text-gray-400">Delivery</p>
               <p class="font-medium text-gray-900 capitalize">
-                {{ deliveryMethod === 'pickup' ? 'Pickup' : 'Delivery (quote TBD)' }}
+                Delivery (quote TBD)
               </p>
             </div>
             <div class="border border-gray-200 p-4 rounded-sm">
@@ -366,7 +353,7 @@ const form = reactive({
   country: 'United States',
 })
 
-const deliveryMethod = ref<'pickup' | 'delivery'>('pickup')
+const deliveryMethod = ref<'delivery'>('delivery')
 const paymentMethod = ref<string>('bank_transfer')
 
 const paymentLoading = ref(false)

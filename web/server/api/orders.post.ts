@@ -2,7 +2,6 @@ import { serverSupabaseServiceRole } from '#supabase/server'
 import nodemailer from 'nodemailer'
 
 const DELIVERY_LABELS: Record<string, string> = {
-  pickup:   'Pickup (free)',
   delivery: 'Delivery (quote to be arranged)',
 }
 
@@ -82,7 +81,7 @@ export default defineEventHandler(async (event) => {
           <p style="margin:6px 0;color:#475569;"><strong>Payment Method:</strong> ${paymentLabel}</p>
         </div>` : ''
 
-      const addressLabel = body.delivery_method === 'pickup' ? 'Pickup Address' : 'Delivery Address'
+      const addressLabel = 'Delivery Address'
 
       // Customer email: include name + phone here since they don't appear elsewhere in the body
       const addressSectionCustomer = `

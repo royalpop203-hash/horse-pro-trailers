@@ -113,12 +113,7 @@
               <button @click="showCheckout = true" class="bg-brand-yellow text-white w-full py-4 uppercase font-bold tracking-wider hover:bg-opacity-90 transition-opacity rounded-sm shadow-sm">
                 Purchase / Reserve
               </button>
-              <button @click="openModal('Info')" class="bg-brand-darkblue text-white w-full py-4 uppercase font-bold tracking-wider hover:bg-opacity-90 transition-opacity rounded-sm shadow-sm">
-                Request Info
-              </button>
-<a href="tel:2817796484" class="bg-white text-gray-900 border-[1.5px] border-gray-400 w-full py-4 text-center uppercase font-bold tracking-wider hover:bg-gray-50 transition-colors rounded-sm block">
-                (281) 779-6484
-              </a>
+              
             </div>
           </div>
         </div>
