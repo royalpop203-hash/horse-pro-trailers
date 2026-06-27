@@ -123,22 +123,22 @@
           </div>
           <template v-else>
             <label
-              v-for="m in ALL_METHODS.filter(m => isAvailable(m.key))"
-              :key="m.key"
+              v-for="m in availableMethods"
+              :key="m.method"
               class="flex items-center gap-3 border p-4 rounded-sm transition-colors cursor-pointer"
-              :class="paymentMethod === m.key
+              :class="paymentMethod === m.method
                 ? 'border-brand-darkblue ring-1 ring-brand-darkblue'
                 : 'border-gray-300 hover:border-gray-400'"
             >
               <input
                 v-model="paymentMethod"
                 type="radio"
-                :value="m.key"
+                :value="m.method"
                 class="accent-brand-darkblue"
               />
-              <span class="text-sm font-semibold text-gray-900">{{ m.label }}</span>
+              <span class="text-sm font-semibold text-gray-900">{{ methodDisplayLabel(m.method, m.label) }}</span>
             </label>
-            <p v-if="ALL_METHODS.filter(m => isAvailable(m.key)).length === 0" class="text-sm text-gray-500 py-4">
+            <p v-if="availableMethods.length === 0" class="text-sm text-gray-500 py-4">
               No payment methods are currently available. Please contact us directly.
             </p>
           </template>
@@ -324,10 +324,6 @@ defineEmits<{ close: [] }>()
 
 const STEPS = ['Contact', 'Delivery', 'Payment', 'Review', 'Confirmation'] as const
 
-const ALL_METHODS = [
-  { key: 'bank_transfer', label: 'Bank Transfer' },
-] as const
-
 const IDENTIFIER_LABELS: Record<string, string> = {
   bank_transfer: 'Account',
 }
@@ -357,7 +353,7 @@ const deliveryMethod = ref<'delivery'>('delivery')
 const paymentMethod = ref<string>('bank_transfer')
 
 const paymentLoading = ref(false)
-const methodAvailability = ref<Record<string, boolean>>({})
+const availableMethods = ref<{ method: string; label: string | null }[]>([])
 
 const confirmPaymentLoading = ref(false)
 const paymentInfo = ref<PaymentInfo | null>(null)
@@ -373,14 +369,16 @@ const canContinueContact = computed(() =>
   form.postalCode.length > 0
 )
 
-function isAvailable(method: string): boolean {
-  if (Object.keys(methodAvailability.value).length === 0) return true
-  return methodAvailability.value[method] !== false
+function methodDisplayLabel(key: string, dbLabel: string | null): string {
+  if (dbLabel) return dbLabel
+  return key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
 }
 
-const currentMethodLabel = computed(
-  () => ALL_METHODS.find(m => m.key === paymentMethod.value)?.label ?? paymentMethod.value
-)
+const currentMethodLabel = computed(() => {
+  const m = availableMethods.value.find(m => m.method === paymentMethod.value)
+  if (m) return methodDisplayLabel(m.method, m.label)
+  return methodDisplayLabel(paymentMethod.value, null)
+})
 
 const identifierLabel = computed(() => IDENTIFIER_LABELS[paymentMethod.value] ?? 'Send to')
 
@@ -469,14 +467,15 @@ async function copyIdentifier() {
 onMounted(async () => {
   paymentLoading.value = true
   try {
-    const { data } = await supabase.from('payment_details').select('method, available')
-    if (data) {
-      for (const row of data as { method: string; available: boolean }[]) {
-        methodAvailability.value[row.method] = row.available
-      }
-      if (!isAvailable(paymentMethod.value)) {
-        const first = ALL_METHODS.find(m => isAvailable(m.key))
-        if (first) paymentMethod.value = first.key
+    const { data } = await supabase
+      .from('payment_details')
+      .select('method, label, available')
+      .eq('available', true)
+    if (data && data.length > 0) {
+      availableMethods.value = data as { method: string; label: string | null }[]
+      // Default to first available method if current selection isn't available
+      if (!availableMethods.value.find(m => m.method === paymentMethod.value)) {
+        paymentMethod.value = availableMethods.value[0].method
       }
     }
   } finally {

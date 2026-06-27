@@ -93,12 +93,13 @@ const authHeaders = () => ({
 onMounted(async () => {
   if (!isAuthenticated.value) { router.push('/login'); return; }
   try {
-    const res = await $fetch(`${supabaseUrl.value}/rest/v1/site_settings?key=eq.notification_email&select=*`, {
+    // site_settings has notification_email as a direct column, not a key-value pair
+    const res = await $fetch(`${supabaseUrl.value}/rest/v1/site_settings?select=*&limit=1`, {
       headers: authHeaders()
     });
     if (res && res.length > 0) {
       recordId.value = res[0].id;
-      notificationEmail.value = res[0].value ?? '';
+      notificationEmail.value = res[0].notification_email ?? '';
     }
   } catch (e) {
     fetchError.value = e.message;
@@ -111,10 +112,10 @@ const save = async () => {
   isSaving.value = true;
   savedMessage.value = '';
   try {
-    await $fetch(`${supabaseUrl.value}/rest/v1/site_settings?key=eq.notification_email`, {
+    await $fetch(`${supabaseUrl.value}/rest/v1/site_settings?id=eq.${recordId.value}`, {
       method: 'PATCH',
       headers: { ...authHeaders(), 'Content-Type': 'application/json', 'Prefer': 'return=representation' },
-      body: { value: notificationEmail.value },
+      body: { notification_email: notificationEmail.value },
     });
     savedMessage.value = 'Saved successfully.';
     setTimeout(() => { savedMessage.value = ''; }, 3000);

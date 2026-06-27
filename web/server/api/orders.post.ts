@@ -5,8 +5,8 @@ const DELIVERY_LABELS: Record<string, string> = {
   delivery: 'Delivery (quote to be arranged)',
 }
 
-const PAYMENT_LABELS: Record<string, string> = {
-  bank_transfer: 'Bank Transfer',
+function formatMethodKey(key: string): string {
+  return key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
 }
 
 export default defineEventHandler(async (event) => {
@@ -45,16 +45,16 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 500, statusMessage: insertError.message })
   }
 
-  // 2. Fetch notification email from site settings
-  const { data: settings } = await supabase
-    .from('site_settings')
-    .select('notification_email')
-    .single()
+  // 2. Fetch notification email and payment method label from DB
+  const [{ data: settings }, { data: paymentRow }] = await Promise.all([
+    supabase.from('site_settings').select('notification_email').single(),
+    supabase.from('payment_details').select('label').eq('method', body.payment_method).maybeSingle(),
+  ])
 
   const ownerEmail = settings?.notification_email || 'info@horseprotrailersltd.com'
 
   const deliveryLabel = DELIVERY_LABELS[body.delivery_method] ?? body.delivery_method
-  const paymentLabel = PAYMENT_LABELS[body.payment_method] ?? body.payment_method
+  const paymentLabel = (paymentRow as any)?.label || formatMethodKey(body.payment_method)
   const priceText = body.product_price
     ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(body.product_price)
     : 'Call for Price'
