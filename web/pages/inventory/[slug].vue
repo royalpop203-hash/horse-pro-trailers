@@ -110,13 +110,13 @@
 
             <!-- CTA Buttons -->
             <div class="flex flex-col gap-4 mt-auto">
+              <button @click="showCheckout = true" class="bg-brand-yellow text-white w-full py-4 uppercase font-bold tracking-wider hover:bg-opacity-90 transition-opacity rounded-sm shadow-sm">
+                Purchase / Reserve
+              </button>
               <button @click="openModal('Info')" class="bg-brand-darkblue text-white w-full py-4 uppercase font-bold tracking-wider hover:bg-opacity-90 transition-opacity rounded-sm shadow-sm">
                 Request Info
               </button>
-              <button @click="openModal('Finance')" class="bg-white text-gray-900 border-[1.5px] border-gray-400 w-full py-4 uppercase font-bold tracking-wider hover:bg-gray-50 transition-colors rounded-sm">
-                Get Financed
-              </button>
-              <a href="tel:2817796484" class="bg-white text-gray-900 border-[1.5px] border-gray-400 w-full py-4 text-center uppercase font-bold tracking-wider hover:bg-gray-50 transition-colors rounded-sm block">
+<a href="tel:2817796484" class="bg-white text-gray-900 border-[1.5px] border-gray-400 w-full py-4 text-center uppercase font-bold tracking-wider hover:bg-gray-50 transition-colors rounded-sm block">
                 (281) 779-6484
               </a>
             </div>
@@ -266,6 +266,19 @@
 
     </div>
 
+    <!-- Checkout Modal -->
+    <CheckoutModal
+      v-if="showCheckout && product"
+      :product="{
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        slug: product.slug,
+        image: images[0]?.url ?? '',
+      }"
+      @close="showCheckout = false"
+    />
+
     <!-- Request Modal -->
     <div v-if="showModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4" @click.self="closeModal">
       <div class="bg-white rounded-md shadow-2xl w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh]">
@@ -314,6 +327,9 @@
 import { ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useSupabaseClient, useSeoMeta } from '#imports';
+
+// Checkout state
+const showCheckout = ref(false);
 
 // Modal State
 const showModal = ref(false);
